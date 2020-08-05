@@ -22,7 +22,7 @@ const Dashboard: React.FC = () => {
   const [hashtag, sethashtag] = useState("");
   const [inputError, setInputError] = useState("");
   const [tweets, settweets] = useState<tweet[]>(() => {
-    const storagetweets = localStorage.getItem("@GithubExplorer:tweets");
+    const storagetweets = localStorage.getItem("@FindHashtag:tweets");
 
     if (storagetweets) {
       return JSON.parse(storagetweets);
@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem("@GithubExplorer:tweets", JSON.stringify(tweets));
+    localStorage.setItem("@FindHashtag:tweets", JSON.stringify(tweets));
   }, [tweets]);
 
   async function handleFindTweet(
@@ -49,8 +49,6 @@ const Dashboard: React.FC = () => {
     }
     try {
       const response = await api.post("tweets/", { hashtag });
-
-      console.log(response.data.statuses);
 
       const tweets = response.data.statuses;
 
